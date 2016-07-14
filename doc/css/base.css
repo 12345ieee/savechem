@@ -1,0 +1,129 @@
+/*
+	Basic CSS for all sites.
+*/
+
+body {
+	background-color: transparent;
+	font: 12px Helvetica, Arial, Verdana, sans-serif;
+}
+
+/* =LAYOUT
+--------------------------------------------------------------------------------------------- */
+
+/* Disable horizontal scrollbar */
+#window {
+	min-width: 960px;
+	overflow: hidden;
+}
+
+#wrap {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+
+/* =IMAGE FRAMES
+--------------------------------------------------------------------------------------------- */
+
+
+.ibox.left {
+	float: left;
+	margin: 10px 10px 10px 0;
+}
+
+.ibox.center {
+	margin: 10px auto;
+	text-align: center;
+}
+
+.ibox.right {
+	float: right;
+	margin: 0 10px 10px 10px;
+}
+
+.ibox .frame {
+	display: inline-block;
+	max-width: 720px;
+	padding: 5px;
+	border: 1px solid #000000;
+}
+
+.ibox .caption {
+	font-size: 90%;
+}
+
+.ibox img {
+	max-width: 100%;
+}
+
+/* =UTILITY
+--------------------------------------------------------------------------------------------- */
+
+/* --- Border for debugging --- */
+.dbg {
+	border: 1px solid red;
+}
+
+/* --- General placement styles --- */
+.center {
+	display: block;
+	margin: 0 auto;
+}
+.cholder {
+	display: block;
+	position: relative;
+	left: 50%;
+	float: left;
+}
+
+.cdiv {
+	display: block;
+	position: relative;
+	left: -50%;
+	float: left;
+}
+
+/*
+	Centering via tables, as it's the only thing that's guaranteed to work 
+	in all cases. Use until IE7 goes out of style. After that: use 
+	display: table and display: table-cell + vertical-align.
+*/
+table.tcenter	{	width: 100%;					}
+table.tcenter td	{	text-align: center;				}
+table.tcenter td>*	{	margin: auto;				}
+
+table.tmiddle	{	height: 100%;					}
+table.tmiddle td	{	vertical-align: middle;			}
+
+/* --- Purely style lists --- */
+ul.hlist, ul.vlist, ul.zlist {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0; 
+	list-style-type: none;
+	overflow: hidden;
+}
+
+ul.hlist>li {
+	display: block;
+	float: left;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+ul.vlist>li {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+ul.zlist>li {
+	position: absolute;
+	display: none;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+ul.zlist>li.active {
+	display: block;
+}
+
+/* EOF */

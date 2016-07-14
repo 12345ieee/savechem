@@ -1,0 +1,85 @@
+/*
+	reset.css
+	Reset styles to sensible defaults.
+	Source: http: //meyerweb.com/eric/thoughts/2007/04/12/reset-styles/
+	
+*/
+
+/* box styles */
+html,body,div,span,
+applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,font,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+dd,dl,dt,ul, ol,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: inherit;
+	text-align: left;
+}
+
+/* text-styles */
+html,body,div,span,
+applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+del,dfn,img,ins,samp,
+dd,dl,dt,ul,ol,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+	font-weight: normal;
+	font-style: normal;
+	font-size: 100%;
+	line-height: 1.3;
+}
+
+a				{	color: inherit;											}
+a:hover			{	text-decoration: none;									}
+/* a[href]:hover	{	text-decoration: underline;							} */
+
+dfn		{	font-weight: bold; font-style: italic;							}
+em 		{	font-weight: bold; color: purple;								}
+h1		{	font-size: 200%;	font-weight: bold;							}
+h2		{	font-size: 150%;	font-weight: bold;							}
+h3		{	font-size: 125%;	font-weight: bold;							}
+h4		{	font-size: 110%;	font-weight: bold;							}
+h5		{	font-size: 100%;	font-weight: bold;							}
+h6		{	font-size: 100%;												}
+
+li		{	margin-left: 2em;	}	/* required for old IE <8			*/
+
+q:before,q:after,
+blockquote:before,blockquote:after {
+	content: "";
+}
+
+sup { 
+	position: relative;
+	bottom: 0.5em;
+	font-size: 70%;
+	line-height: 0;
+	vertical-align: baseline;
+}
+sub {
+	position: relative;
+	top: 0.5em;
+	font-size: 70%;
+	line-height: 0;
+	vertical-align: baseline;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+th, td {
+	vertical-align: top;
+}
+
+
+
+/* EOF */

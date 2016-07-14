@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SaveChem : a SpaceChem savegame wrangler</title>
+  <!-- <script src="" type="text/javascript"></script> -->
+  <link href="css/reset.css" rel="stylesheet" type="text/css">
+  <link href="css/base.css" rel="stylesheet" type="text/css">
+  <link href="css/main.css" rel="stylesheet" type="text/css">
+  <meta name="version" content="0.0.2">
+</head>
+<body>
+
+<div class="wrap">
+  <h1>
+    SaveChem
+    <div class="subtitle">a SpaceChem savegame wrangler</div>
+    <div class="version">Version: 0.0.2 (alpha)</div>
+    <div class="author">By: <a href="mailto:cearn@coranac.com">cearn</a></div>
+    <div class="time">Date: 20140810 - 20140825</div>
+  </h1>
+  
+  <div id="sec-stats" class="sec">
+    <div class="content">
+<p>
+This is a small tool with which you can see what's inside a SpaceChem savegame. You can also use it to import and export solutions, and clear the undo list, which is actually the brunt of the file.<br><br>
+
+It's still somewhat early days for the tool and it lacks polish, but it can already do some useful stuff.
+</p>
+    </div>
+  </div>
+  
+  <div class="sec">
+    <h2>Contents</h2>
+    <div class="content">
+<ul class="toc">
+  <li><a href="#sec-reqs">Requirements</a></li>
+  <li><a href="#sec-usage">Usage</a></li>
+  <li><a href="#sec-release">Release notes</a></li>
+  <li><a href="#sec-legal">Legalities and references</a></li>
+  <li><a href="#sec-contact">Contact</a></li>
+</ul>
+    </div>
+  </div>
+  
+  <div id="sec-reqs" class="sec">
+    <h2>Requirements</h2>
+    <div class="content">
+<ul>
+  <li><b>Windows XP or higher</b> (sorry)</li>
+  <li><b>.NET 4.0</b>. You probably have this already. If not, you can download it <a href="http://www.microsoft.com/en-us/download/details.aspx?id=17851" target="_blank">here</a></li>
+  <li><b>System.Data.SQLite.dll</b> (included)</li>
+  <li><b>NewtonSoft.Json.dll</b> (included)</li>
+</ul>
+    </div>
+  </div>
+  
+  <div id="sec-usage" class="sec">
+    <h2>Usage</h2>
+    <div class="content">
+    
+    
+<div class="ibox center">
+  <div class="frame">
+    <img src="img/main-window.png" alt="">
+    <div class="caption">
+      <b>Main window</b>
+    </div>
+  </div>
+</div>
+
+<p>
+The basic use of the tool should be obvious. It starts with opening a savegame. These are the 
+<tt>.user</tt> files that can be found in
+</p>
+<ul>
+  <li><b>Windows XP</b>: C:/Documents and Settings/<i>&lt;username&gt;</i>/Local Settings/Application Data/Zachtronics Industries/SpaceChem/save</li>
+  <li><b>Windows 7 / Vista</b>: C:/Users/<i>&lt;username&gt;</i>/AppData/Local/Zachtronics Industries/SpaceChem/save</li>
+  <li><b>OSX / Linux</b>: ~/.local/share/Zachtronics Industries/SpaceChem</li>
+</ul>
+<p>
+</p>
+
+
+<div class="note">
+  <h4>Note : SaveChem does not automatically create backups</h4>
+  <p>
+  All actions performed in the tool are performed directly on the savegame. If an action deletes 
+  or adds things, it will affect the savegame immediately. 
+  </p>
+</div>
+    </div>
+    
+    <div id="ssec-usage-features" class="ssec">
+      <h3>Features</h3>
+      <div class="content">
+
+<h4>Export (to clipboard)</h4>
+<p>
+<kbd>Export</kbd> allows you to export the solution for the current level. For the moment, 
+it's only export-to-clipboard, but it shouldn't be too hard to add export-to-file as well.
+<span class="mini">(It's just boring to do so)</span>
+</p><br>
+
+<p>
+Select a level and click <kbd>Export to clipboard</kbd> to export a solution description to 
+the clipboard.
+</p>
+
+<br>
+<h4>Slice</h4>
+<p>
+With this, you can create a 'slice' of the levels in the savegame. Effectively, this creates a savegame with only the selected solutions in it. This <i>dramatically</i> reduces the filesize, making it perfect for uploading only a few levels to solutionNet, or just to keep as a small backup.
+</p>
+
+
+<div class="ibox center">
+  <div class="frame">
+    <img src="img/export-slice.png" alt="">
+    <div class="caption">
+      <b>Slicing</b>. Select multiple levels and hit <kbd>Slice</kbd> to create a savegame with just the selected levels.
+    </div>
+  </div>
+</div>
+
+<br>
+<h4>Import Level</h4>
+<p>
+Import a custom level, as you would inside the game. This makes it easier to import a solution 
+of a mission you don't have yet.
+</p><br>
+<p>
+I will say, however, that the validator won't accept everything yet. If you try to import 
+something that you know is a valid level, but isn't accepted, send it to me and I'll see what 
+I can do. At present, it doesn't accept sandbox missions yet.
+</p>
+
+<div class="ibox center">
+  <div class="frame">
+    <img src="img/import-level-full.png" alt="">
+    <div class="caption">
+      <b>Import level</b>. Enter the level definition at the top and hit <kbd>Parse</kbd>. 
+      If that succeeds, you can import the level via <kbd>OK</kbd>.
+    </div>
+  </div>
+</div>
+
+<br>
+<h4>Import Solution</h4>
+<p>
+This is the big one. This can import a previously exported solution to your savegame. This 
+<i>will</i>, of course, delete all traces of the old solution, so be sure you're actually 
+importing what you want.
+</p><br>
+<p>
+The way it works is as follows:
+</p>
+<ol>
+  <li>
+    <b>Choose your import source</b>. For now it's just text-input, but files will be added in due time.
+  </li>
+  <li>
+    <b>Parse the solution</b>. This will parse the solution input and see if it is a proper 
+    solution. If so it will show some of the solution's statistics and determine level 
+    candidates.
+  </li>
+  <li>
+    <div class="ibox right">
+      <div class="frame" style="width:296px">
+        <img src="img/import-solution-candidates.png" alt="">
+        <div class="caption">
+          <b>Level candidates</b>. A list of levels that this solution could be for. Here, they're 
+          all called 'Sun Simulator', which is why renaming can be useful -_-.
+        </div>
+      </div>
+    </div>
+    <b>Candidates and level select</b>. The parsing step also tries to find 'candidate' levels that  this solution belongs to. It does so according to 3 criteria:
+    <ul>
+      <li>internal level ID (<b>i</b>)
+      <li>level definition (<b>d</b>)
+      <li>level name (<b>n</b>)
+    </ul>
+    The solutions are put in the drop-down on the right, sorted by these criteria. It will also display the last score for those levels. For official levels, there should be only one; for custom missions, there may be more. It's possible that no level can be found that matches the solution. In that case, you probably haven't played that level yet.<br>
+    In any case, select the level that you want to import the solution for.
+    
+
+  </li>
+  <li>
+    <b>Additional custom options</b>. For custom missions, there are some extra options. You can choose to create a <kbd>copy</kbd> of the mission so that the original solution is spared. If you choose to copy, you can also give the level a different name.
+  </li>
+  <li>
+    <b>Click OK!</b>. You're done! You can import! Woo \o/
+  </li>
+</ol>
+
+<div class="ibox center">
+  <div class="frame" style="width:640px;">
+    <img src="img/import-solution-full.png" alt="">
+    <div class="caption">
+      <b>Import solution</b>. Enter the level definition at the top and hit <kbd>Parse</kbd>. 
+      If that succeeds, you'll get a solution summary in the bottom-left, and a candidate list 
+      on the right. Pick the desired candidate, maybe set a new name, and click <kbd>OK</kbd> to 
+      import.
+    </div>
+  </div>
+</div>
+
+<br>
+<h4>Clear undo</h4>
+<p>
+The savegames keep an infinite undo history. This means that if you've been playing for a while, 
+the savegame is mostly undo information, maybe even up to 90%. The <kbd>Clear Undo</kbd> allows 
+you to remove that. 
+</p><br>
+<p>
+Select one or more levels, then hit <kbd>Clear Undo</kbd> to remove the the undo information 
+for those levels. 
+</p>
+
+      </div>
+    </div>
+  </div>
+  
+  <div id="sec-release" class="sec">
+    <h2>Release notes</h2>
+    <div class="content">
+   
+<h3>Change log</h3>
+
+<h4>v0.0.2 (20140825)</h4>
+<p>
+</p>
+<ul>
+  <li>Added <kbd>Slice</kbd></li>
+  <li>Added <kbd>Import Level</kbd></li>
+  <li>Created this spiffy document</li>
+</ul>
+
+<h4>v0.0.1 (20140810)</h4>
+<p>
+Initial release.
+</p>
+
+    </div>
+  </div>
+  
+<h3>Wishlist</h3>
+<ul>
+  <li>(20140810) : View solution.</li>
+  <li>(20140810) : Export/import to files.</li>
+  <li>(20140810) : Delete solutions, maybe?</li>
+  <li>(20140810) : Spruce up interface.</li>
+  <li>(20140825) : a proper installer.</li>
+</ul>
+
+  <div id="sec-legal" class="sec">
+    <h2>Legalities and references</h2>
+    <div class="content">
+
+<h3>Disclaimer</h3>
+<p>    
+I make no guarantees on whether or not this will screw up the savegame. I've tested the core functionalities and they <i>should</i> work, but I can't be held responsible if the savegame becomes 
+corrupt. At present, I'd still suggest creating a backup before you start importing things.
+</p>
+
+<h3>References</h3>
+<ul>
+  <li><b>SpaceChem</b> (<a href="http://www.zachtronics.com/spacechem/" target="_blank">http://www.zachtronics.com/spacechem/</a>) The game itself. You should already have this (and if not, why the hell not?!? It's awesome!)
+  </li>
+  <li><b>Json.NET</b> (<a href="http://james.newtonking.com/json" target="_blank">http://james.newtonking.com/json</a>)
+  For reading/writing JSONy things.
+  </li>
+  <li><b>System.Data.SQLite</b> (<a href="http://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki" target="_blank">http://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki</a>)
+  For interfacing with the savegame. For anyone else trying this : GET THE 32-BIT INSTALLER!
+  The 64-bit versions require InterOps DLLs, which are nowhere to be found.
+  </li>
+</ul>
+
+    </div>
+  </div>
+  
+  <div id="sec-contact" class="sec">
+    <h2>Contact</h2>
+    <div class="content">
+<p>
+If you have questions, comments, suggestions, this is where you can find me. If the tool doesn't 
+work, or if it messed up the savegame in a way you didn't ask for, please contact me.
+</p>
+<p>
+I'd also like to know just how big some people's UndoCount has become. My record is 8000, and I already know someone got to 23k.
+</p><br>
+
+<p>
+Steam : cearn<br>
+Email : <a href="mailto:cearn@coranac.com">cearn@coranac.com</a><br>
+Project page : <a href="http://coranac.com/projects/savechem" target="_blank">http://coranac.com/projects/savechem<br>
+</p>
+
+    </div>
+  </div>
+  
+</div>
+
+</body>
+</html>

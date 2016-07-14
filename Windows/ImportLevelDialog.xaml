@@ -1,0 +1,32 @@
+﻿<u:ObservableWindow x:Class="SaveChem.Windows.ImportLevelDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:u="clr-namespace:SaveChem.Utilities"
+        Title="Import custom level" Height="400" Width="640">
+    <Grid>
+    <DockPanel>
+      <StackPanel FlowDirection="RightToLeft" DockPanel.Dock="Bottom" Orientation="Horizontal">
+        <StackPanel.Resources>
+          <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="2,2,5,2" />
+          </Style>
+        </StackPanel.Resources>
+        <Button Click="btnCancel_Click" Content="Cancel" Name="btnCancel" Width="72" />
+        <Button Click="btnOK_Click" Content="OK" IsEnabled="{Binding CanApply}" Name="btnOK" Width="72" />
+      </StackPanel>
+      <GroupBox x:Name="summaryGroup" Height="160" Header="Summary" DockPanel.Dock="Bottom">
+        <ScrollViewer>
+          <TextBlock x:Name="infoText" Text="{Binding Summary}" TextWrapping="Wrap" />
+        </ScrollViewer>
+      </GroupBox>
+      <GroupBox x:Name="inputGroup" Header="Input">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="bottom" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,5">
+            <Button Name="btnParse" Content="Parse" Width="72" IsEnabled="{Binding CanTry}" Click="btnParse_Click" />
+          </StackPanel>
+          <TextBox DockPanel.Dock="Top" Name="inputStringText" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="inputString_TextChanged" FontFamily="Courier New" />
+        </DockPanel>
+      </GroupBox>
+    </DockPanel>
+  </Grid>
+</u:ObservableWindow>
