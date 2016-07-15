@@ -17,12 +17,7 @@ namespace SaveChem.Utilities
 			{
 				string path = AppDomain.CurrentDomain.BaseDirectory;
 				string dir = Path.GetDirectoryName(path);
-#if DEBUG
-				path = Path.GetDirectoryName(Path.GetDirectoryName(dir)) + Path.DirectorySeparatorChar;
-#else
-				//path= Path.GetDirectoryName(dir) + Path.DirectorySeparatorChar;
-#endif
-
+				path = dir + Path.DirectorySeparatorChar;
 				return path;
 			}
 		}
